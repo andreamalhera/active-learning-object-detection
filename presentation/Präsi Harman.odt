@@ -1,0 +1,47 @@
+     1. Motivation
+         a) goal?
+         b) What is Object Detection? ? our motivation slide
+            ? Example Image
+            ? Box and corresponding Class
+            ? State of the Art: Neural Network Architectures YOLO, Faster RCNN, … ? Tobias slide 2
+         c) Main Problem: Training Data ? Tobias slide 2
+            ? Current approaches need tens of thousands of labeled images
+            ? Labeling takes a lot of time: draw box + select from many classes (in our experiments x seconds per image)
+            ? Maybe show screenshot of existing labeling tool
+            ? Question: How can we support labeling?
+         d) Semi-Automatic Labeling ? Active Learning slide
+            ? Key Feature 1: Propose Labels for an image 1. bounding boxes + class labels and 2. Class labels for an image
+            ? Key Feature 2: Improve label proposals with each new image
+            ? Key Feature 3: reduce the number of images to label through active learning
+     2. Key Features / Workflow ? per feature 1 slide, 
+         a) Key Feature 1: Label + box Proposals ? Tobias slides 5+6
+            ? Unlabeled image gets classified from pretrained network (here people may think where does this come from?)
+            ? This may produce wrong results, which have to be adapted manually
+            ? Some image similar (or identical) to slide 5/6 of my presentation
+         b)  Key Feature 2: Class Label Proposals for manually drawn boxes ? change images in Tobias slide 7
+            ? Once a new box is selected the pretrained network can also help by classifying this box -> propose class label(s)
+            ? Some image similar (or identical) to slide 7 of my presentation 
+         c) Key Feature 3: Continuous improvement ? Tobias slide 8 structure
+            ? Once the image is accepted/adapted by the user use it for training
+            ? Some image similar (or identical) to slide 8 of my presentation
+         d) Key Feature 4: Reduce number of images to label ? Tobias slide 9 pic accuracy + last sentence
+            ? Explain active learning
+            ? Show a graph similar to the one on slide 9 of my presentation
+     3. Implementation 
+         a) Implementation goals: Webbased, modular, multi-user in mind, possible add-ons (new models, new labeling taks),… ? our slide 9 + Tobias content
+         b) Architecture ? our workflow with bigger font + logos of used tools etc.
+            ? The image with all components that we developed together in one of our meetings
+            ? When explaining this then I would first explain the overall components (UI, Server, Database, Tensorflow) and then follow one image through the network
+         c) Tools/Libraries/Languages/Databases used ? in b)
+     4. Demo
+         a) Interactive Demo
+         b) Use a good image
+         c) Explain in detail all parts of the screen
+         d) Show key feature 1
+         e) Remind everyone that the newly labeled image is improving the network (feature 2) and the image was selected according to AL (feature 3) (repetition is your friend!)
+     5. Summary
+         a) Difficulties
+         b) Future Work
+         c) 
+     6. Experiments (not sure if this part is really necessary for Harman, maybe as Backup) ?show only when they ask about it..
+         a) How many images can we save: AL experiments

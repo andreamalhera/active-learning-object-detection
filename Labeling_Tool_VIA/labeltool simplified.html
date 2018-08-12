@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>VGG Image Annotator</title>
+    <meta name="author" content="Abhishek Dutta">
+    <meta name="description" content="VIA is a standalone image annotator application packaged as a single HTML file (< 200 KB) that runs on most modern web browsers.">
+	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <!-- default Größe für box -->
+  <body onload="_via_init()" onresize="_via_update_ui_components()">  <!--@Ira onresize: Execute a JavaScript when the browser window is resized -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <symbol id="shape_rectangle">
+          <title>Rectangular region shape</title>
+          <rect width="20" height="12" x="6" y="10" stroke-width="2"/>
+        </symbol>
+    </svg>
+
+	   <div class="top_panel" id="ui_top_panel">
+      <input type="file" id="invisible_file_input" multiple name="files[]" style="display:none">
+    </div> <!-- endof #top_panel -->
+
+    <!-- Middle Panel contains a left-sidebar and image display areas -->
+
+    <div class="middle_panel">
+      <div id="leftsidebar">
+	  <!--<button onclick="load_local_images()" class="leftsidebar_accordion" title="Load (or add) a set of images from local disk">Load Images</button>
+-->
+    <button onclick="sel_local_images()" class="leftsidebar_accordion" title="Load (or add) a set of images from local disk">Load Images</button>
+	  <button onclick="sel_local_data_file('annotations')" class="leftsidebar_accordion" title="Import existing region data from CSV or JSON file">Import Project</button>
+	  <button onclick="toggle_img_list(this)" class="leftsidebar_accordion" id="loaded_img_panel">List Images</button>
+        <div class="leftsidebar_accordion_panel" id="img_list_panel"></div>
+
+        <!-- <div class="leftsidebar_accordion_panel" id="img_list_panel"></div> -->
+
+        <button  class="leftsidebar_accordion" id="reg_attr_panel_button">Select Label</button> <!--onclick="toggle_reg_attr_panel()"--> <!-- TO DO: write own class-->
+		<div>
+			<ul class="region_class">
+				<li id="region_class"  onclick="change_class_to('pedestrian')" title="Pedestrian">Pedestrian</li>
+				<li>traffic sign
+					<ul>
+						<li id="region_class"  onclick="change_class_to('Sign_uneven_road')" title="Sing_uneven_road">Uneven road</li>
+						<li id="region_class"  onclick="change_class_to('Sign_road_works')" title="Sing_road_works">Road works</li>
+					</ul>
+				</li>
+		  	<li id="region_class"  onclick="change_class_to('House')" title="House">House</li>
+		</ul>
+		</div>
+
+		 <button class="leftsidebar_accordion" onclick="download_all_region_data('json')" title="Save image region annotations as a JSON(Javascript Object Notation) file">Save Project</button>
+
+        <button onclick="" class="leftsidebar_accordion" title="Load (or add) a set of images from local disk">Zoom</button>
+	      <button id="toolbar_zoom_out" class=""  style="margin-left: 2em;" onclick="zoom_out()" title="Zoom Out">&minus;</button>
+          <button id="toolbar_zoom_in" class=""  onclick="zoom_in()" title="Zoom In">&plus;</button>
+          <button id="toolbar_zoom_reset" class="" onclick="reset_zoom_level()" title="Zoom Reset">&equals;</button>
+
+		<!-- <button  class="leftsidebar_accordion" id="file_attr_panel_button">File Attributes</button> <!--onclick="toggle_file_attr_panel()"-->
+		<button  class="leftsidebar_accordion" onclick="show_about_panel()" title="Help">Help</button>
+              <!-- <button class="leftsidebar_accordion" onclick="show_getting_started_panel()" title="Getting started with VGG Image Annotator (VIA)">Getting Started</button> -->
+      </div> <!-- end of leftsidebar -->
+
+      <!-- Main display area: contains image canvas, ... -->
+      <div id="display_area">
+        <div id="canvas_panel">
+          <canvas id="image_canvas"></canvas>
+          <canvas id="region_canvas">Sorry, your browser does not support HTML5 Canvas functionality which is required for this application.</canvas>
+        </div>
+
+        <div>
+          <div class="text_panel" id="via_start_info_panel">Starting VGG Image Annotator ...</div>
+
+          <div class="text_panel" style="padding: 1em; border: 1px solid #cccccc;" id="about_panel">
+		  <p>
+		  Wenn zu bereits vorhandenen Annotationen neue Boxen hinzugefügt werden sollen, müssen diese in einer neuen JSON-Datei gespeichert werden, also die JSON-Datei umbenennen.
+		  </p>
+          <!--   <p style="font-size: 2em;">Instructions</p>
+            <p style="font-size: 0.8em;">version <a href="https://gitlab.com/vgg/via/blob/master/CHANGELOG">1.0.5</a></p>
+            <p>
+              VGG Image Annotator (VIA) is an <a href="https://gitlab.com/vgg/via/">open source project</a>
+              developed at the <a href="http://www.robots.ox.ac.uk/~vgg/">Visual Geometry Group</a>
+              and released under the BSD-2 clause <a href="https://gitlab.com/vgg/via/blob/master/LICENSE">license</a>.
+              With this standalone application, you can define regions in an image and create a textual description of those regions.
+              Such image regions and descriptions are useful for supervised training of learning algorithms.
+            </p>
+            <p>Features:</p>
+            <ul>
+              <li>based solely on HTML, CSS and Javascript (no external javascript libraries)</li>
+              <li>can be used off-line (full application in a single html file of size &lt; 200KB)</li>
+              <li>requires nothing more than a modern web browser</li>
+              <li>supported region shapes: rectangle, circle, ellipse, polygon and point</li>
+              <li>import/export of region data in csv and json file format</li>
+            </ul>
+            <p>For more details, visit <a href="http://www.robots.ox.ac.uk/~vgg/software/via/">http://www.robots.ox.ac.uk/~vgg/software/via/</a>.</p>
+            <p>&nbsp;</p>
+            <p>Copyright &copy; 2016-2018, <a href="mailto:adutta@robots.ox.ac.uk">Abhishek Dutta</a> (Visual Geometry Group, Oxford University)</p> -->
+          </div>
+
+          <div class="text_panel" id="license_panel">
+            <pre>
+              Copyright (c) 2016-2017, Abhishek Dutta, Visual Geometry Group, Oxford University.
+              All rights reserved.
+
+              Redistribution and use in source and binary forms, with or without
+              modification, are permitted provided that the following conditions are met:
+
+              Redistributions of source code must retain the above copyright notice, this
+              list of conditions and the following disclaimer.
+              Redistributions in binary form must reproduce the above copyright notice,
+              this list of conditions and the following disclaimer in the documentation
+              and/or other materials provided with the distribution.
+              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+              AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+              IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+              ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+              LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+              CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+              SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+              INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+              ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+              POSSIBILITY OF SUCH DAMAGE.
+            </pre>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- region and file attributes input panel -->
+    <div id="attributes_panel">
+      <div id="attributes_panel_toolbar">
+        <div onclick="toggle_attributes_input_panel()" class="attributes_panel_button">&times;</div>
+      </div>
+      <table id="attributes_panel_table"></table>
+    </div>
+
+    <!-- to show status messages -->
+    <div id="message_panel"></div>
+
+    <!-- this vertical spacer is needed to allow scrollbar to show
+         items like Keyboard Shortcut hidden under the attributes panel -->
+    <div style="width: 100%;" id="vertical_space"></div>
+
+  <!--
+    <script src="via.js"></script>
+   -->
+   <script src="via.js"></script>
+    <script src="load_from_local.js"></script>
+    <script src="init.js"></script>
+    <script src="view.js"></script>
+
+  </body>
+</html>
