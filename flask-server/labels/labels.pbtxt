@@ -1,0 +1,36 @@
+item { 
+	id: 0
+	name: "Pedestrian"
+}
+item { 
+	id: 1
+	name: "Truck"
+}
+item { 
+	id: 2
+	name: "Car"
+}
+item { 
+	id: 3
+	name: "Cyclist"
+}
+item { 
+	id: 4
+	name: "DontCare"
+}
+item { 
+	id: 5
+	name: "Misc"
+}
+item { 
+	id: 6
+	name: "Van"
+}
+item { 
+	id: 7
+	name: "Tram"
+}
+item { 
+	id: 8
+	name: "Person_sitting"
+}

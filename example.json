@@ -1,0 +1,66 @@
+//Json example with 3 Rois
+//tensorflow's: 
+
+{
+"height":20,
+"width":1920,
+"filename":"00000.png",
+"source_id":"somePath/00000.jpg",
+"last-modified": 1527678888,
+"sha256":"fabd5dbb0065d689c16d3c405734df223c958953df64e9fb96af4cbda0ea3d9b",
+"format":".jpg",
+"detection_score" :[1,0.5,0.75],
+"bbox/xmin":[0,0,0],
+"bbox/xmax":[300,300,300],
+"bbox/ymin":[0,0,0],
+"bbox/ymax":[300,300,300],
+"label":["car","dog","bike"],
+}
+
+//Labeling Tool's:
+// Recommendations are commented, as discussed and will be discussed on 19. Juni
+{
+   "path": "somePath/image-id.jpg",
+   "file-typ": "jpg",
+   "width" : 1920,    
+   "height" : 20,
+   "last-modified": 1527678888,
+   "sha256":"fabd5dbb0065d689c16d3c405734df223c958953df64e9fb96af4cbda0ea3d9b",
+   "rois" : [{
+      "x": 0,
+      "y": 0,
+      "w": 300,
+      "h": 300,
+      "class": "car",
+      "detection_score" : 1,
+/*      "recommendations":{
+          "car" : 0.92,
+          "dog" : 0.42,
+          "bike" : 0.03
+*/      }
+  },{
+      "x": 0,
+      "y": 0,
+      "w": 300,
+      "h": 300,
+      "class": "dog",
+      "detection_score" : 0.5,
+/*      "recommendations":{
+          "car" : 0.92,
+          "dog" : 0.42,
+          "bike" : 0.03
+      }*/
+  },{
+    "x": 0,
+    "y": 0,
+    "w": 300,
+    "h": 300,
+    "class": "bike",
+    "detection_score" : 0.75,
+/*      "recommendations":{
+        "car" : 0.92,
+        "dog" : 0.42,
+        "bike" : 0.03
+    }*/
+}]
+}
