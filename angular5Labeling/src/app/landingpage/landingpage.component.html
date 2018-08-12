@@ -1,0 +1,55 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="">Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="">ClassLabels</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="">Information</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-lg-6 my-auto">
+        <div class="header-content ">
+          <h3 class="mb-5">Labeling Tool by SIJACO</h3>
+          <h5 class="mb-5">Choose one of the below listed images to start labeling</h5>
+          <p (click)="dataService.loadLabels()" class="btn btn-outline btn-xl js-scroll-trigger">Load Data!</p>
+        </div>
+
+
+        <div class="header-content ">
+          <h3 class="mb-5">Your Selection</h3>
+          <div class="card" *ngIf="annotationService.imageRegions.image">
+            <img class="card-img-top" [src]="annotationService.imageRegions.image.source_id" alt="Card image cap">
+            <div class="dark-style">
+              <br>
+            </div>
+          </div>
+          <br>
+
+          <a [routerLink]="['/labeling']" class="btn btn-outline btn-xl js-scroll-trigger"
+             *ngIf="annotationService.imageRegions.image">Edit Labels</a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+

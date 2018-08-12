@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="load-container">
+    <h3>Toolbar</h3>
+    <div class="button-row">
+      <!--<button mat-raised-button color="accent" (click)="annotationService.doPOST()">Submit Data</button>-->
+      <button mat-raised-button color="accent" (click)="dataService.doPost()">Submit Data</button>
+      <button mat-raised-button color="primary"  [routerLink]="['/']">Get New Data</button>
+    </div>
+  </div>
+  <div class="subImage-container">
+    <app-subimage [activeROI]="subImageService.activeROI"></app-subimage>
+  </div>
+
+  <div class="rois-container">
+    <app-rois-table></app-rois-table>
+  </div>
+
+</div>
+
+
+
+
+

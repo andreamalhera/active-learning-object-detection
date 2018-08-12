@@ -1,0 +1,52 @@
+<div class="content table-responsive table-full-width">
+  <!--<b>{{annotationService.labelClasses}}</b> &lt;!&ndash;labels&ndash;&gt;-->
+  <!--<b>{{annotationService.imageRegions.rois}}</b>-->
+  <table class="table table-hover table-striped pre-scrollable">
+    <thead>
+    <tr>
+      <th>Label</th>
+      <th>Change Label</th>
+
+    </tr>
+    </thead>
+    <tbody class="table-body">
+	<ng-container *ngFor="let roi of annotationService.imageRegions.rois; let i = index" >
+    <tr *ngIf="roi.id == labelingService.userSelRegionId" style="background: yellow;" (click)="selectRegion(roi.id)">
+      <td>{{roi.label.name}}</td>
+
+      <td>
+        <select [(ngModel)]="roi.label">
+		  <option Disabled>Suggestions:</option>
+		  <option  *ngFor="let labelOptions of roi.proposedLabels ; let i = index" [ngValue]="labelOptions">
+            {{labelOptions.id}}: {{labelOptions.name}}
+          </option>
+		  <option Disabled>All Class Labels:</option>
+          <option  *ngFor="let labelOptions of annotationService.labelClasses " [ngValue]="labelOptions">
+            {{labelOptions.name}}
+          </option>
+        </select>
+      </td>
+
+    </tr>
+	<tr *ngIf="roi.id != labelingService.userSelRegionId" (click)="selectRegion(roi.id)">
+      <td>{{roi.label.name}}</td>
+
+      <td>
+        <select [(ngModel)]="roi.label">
+		  <option Disabled>Suggestions:</option>
+		  <option  *ngFor="let labelOptions of roi.proposedLabels ; let i = index" [ngValue]="labelOptions">
+            {{labelOptions.id}}: {{labelOptions.name}}
+          </option>
+		  <option Disabled>All Class Labels:</option>
+          <option  *ngFor="let labelOptions of annotationService.labelClasses " [ngValue]="labelOptions">
+            {{labelOptions.name}}
+          </option>
+        </select>
+      </td>
+
+    </tr>
+	</ng-container>
+    </tbody>
+  </table>
+</div>
+<!--annotationService.deleteROI() löscht alles rois-->

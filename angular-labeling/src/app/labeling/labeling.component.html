@@ -1,0 +1,116 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn zoom zoom-in" (click)="getRequest()"><i class="fas fa-camera-retro" ></i> Load New Image</button>
+                        <button type="button" class="btn zoom zoom-out" (click)="postRequest()"><i class="fas fa-cloud-upload-alt"></i> Submit Image</button>
+                    </div>
+                    
+					<div class="col-md-6">
+                        <ul role="tablist" class="nav nav-tabs">
+                            <li role="presentation" class="nav-item active" aria-expanded="false">
+                                <a class="nav-link active-pro" id="settings-image" href="#icon-settings" data-toggle="tab" aria-expanded="true"><i class="fa fa-cog"></i>Settings</a>
+                            </li>
+                            <li role="presentation" class="nav-item" aria-expanded="false">
+                                <a class="nav-link" id="style-image" href="#style-settings" data-toggle="tab" aria-expanded="false"><i class="fa fa-cube"></i>Style</a>
+                            </li>
+                            <li role="presentation" class="nav-item" aria-expanded="false">
+                                <a class="nav-link" id="info-image" href="#icon-info" data-toggle="tab" aria-expanded="false"><i class="fa fa-info"></i>Info</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active in" id="icon-settings" role="tabpanel" aria-labelledby="home-tab">
+							
+									<select class="label-select"  #selectElem (change)="changeRegionClass(selectElem.value)">
+										<option selected disabled style="display:none" [value]="-1">Recommended Label</option>
+										<option *ngFor="let cL of classLabels" [value]="cL.id">
+											{{cL.name}}
+										</option>
+									</select>
+							
+							</div>
+                            <div class="tab-pane fade" id="style-settings" role="tabpanel" aria-labelledby="profile-tab">Test1</div>
+                            <div class="tab-pane fade" id="icon-info" role="tabpanel" aria-labelledby="contact-tab">Test3</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="content image-can" #div8>
+                        <div class="display_area" [style.height.px]="imageWindowHeight">
+                            <canvas id="image" #image></canvas>
+                            <canvas id="regionCanvas" #regionCanvas> Sorry, your browser doesn't support canvas technology.</canvas>
+                        </div>
+
+
+                    </div>
+                </div>
+				<br>
+				
+            </div>
+            <div class="col-md-4">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Region of Interest</h4>
+
+                        </div>
+                        <div class="content">
+
+                            <div class="subImage" #div4 [style.height.px]="subImageWindowHeight">
+                                <canvas id="selectedRegion" #selectedRegion></canvas>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped pre-scrollable">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Active</th>
+                                        <th>( x , y , w , h)</th>
+                                        <th>Class</th>
+                                        <th>Color</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                    <tr *ngFor="let c of canvasRegions; let i = index" (click)="selectRegion(i)">
+                                        <td>{{i}}</td>
+                                        <td >{{c.is_user_selected}}</td>
+                                        <td>({{c.shape_attributes.x}},{{c.shape_attributes.y}},{{c.shape_attributes.width}},{{c.shape_attributes.height}})</td>
+                                        <td><p>{{c.region_attributes.name}}</p></td>
+                                        <td><p>{{c.region_attributes.color}}</p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+					<div class="card">
+                        <div class="header">
+                            <h4 class="title">Label list</h4>
+							Search: <input type="text" [(ngModel)]='searchText' (input)="searchLabel()"/>
+                        </div>
+					<div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped pre-scrollable">
+                                    <thead>
+                                    <tr>
+                                        <th>Labels</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                    <tr *ngFor="let class of actualClassLabels;" (click)="changeRegionClass(class.id)">
+                                        <td>{{class.name}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+							</div>
+							
+            </div>
+        </div>
+    </div>
+</div>
+

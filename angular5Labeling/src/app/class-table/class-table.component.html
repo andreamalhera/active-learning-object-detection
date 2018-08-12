@@ -1,0 +1,20 @@
+<div class="content table-responsive table-full-width">
+  	Search: <input type="text" [(ngModel)]='searchText' (input)="searchLabel()"/>
+
+  <table class="table table-hover table-striped pre-scrollable">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Class</th>
+      <th>Color</th>
+    </tr>
+    </thead>
+    <tbody class="table-body">
+    <tr *ngFor="let c of actualLabelClasses" (click)="test(c.id)">
+      <td>{{c.id}}</td>
+      <td><p>{{c.name}}</p></td>
+      <td><p>{{c.color}}</p></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
